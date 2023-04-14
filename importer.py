@@ -77,15 +77,26 @@ class SimplyBook:
             cid = self.clients[self.clients.email == row.email]
 
             if cid.empty:
-                self.create_client(row)
-                pass
+                print("creating client", row.name)
+                cid = self.create_client(row)
             else:
                 cid = int(cid.id.item())
 
+            payload = {
+                "start_datetime": row.start,
+                "provider_id": pid,
+                "service_id": sid,
+                "client_id": cid,
+            }
+            self.create_booking(payload)
+
     def create_client(self, row):
         payload = {"name": row.name, "email": row.email, "phone": row.phone}
-        print("Creating new client", payload)
-        r = self.session.post(f"{self.api}/clients", json=payload)
+        r = self.session.post(f"{self.api}/clients", json=payload).json()
+        return r.get("id")
+
+    def create_booking(self, payload):
+        r = self.session.post(f"{self.api}/bookings", json=payload)
         print(r.json())
 
 
