@@ -16,7 +16,9 @@ debug_log           = "debug.log"
 ```
 
 `import_csv` - defines path to csv improt file with bookings
+
 `failed_bookings_log` - defines path to file, where all failed booking imports are logged
+
 `debug_log` - defines path to log file, where everything is logged
 
 
@@ -33,8 +35,11 @@ Teaching service,Provider 2,Alex Fulham,alexfulham@notando.is,3548989778,2023-04
 ```
 
 `service` - is defined with name, lookup to `domain` is done to find service id, if no such a service is found, the csv row is skipped and logged as error
+
 `provider` - is defined with name, lookup to `domain` is done to find provider id, if no such a provider is found, the csv row is skipped and logged as error
+
 `name,email,phone` - are client details, if not such a client is found by `email`, it gets created automatically to store `client_id` internally
+
 `start` - start datetime of an appointment, always should be in this format YYYY-MM-DD HH:MM:SS
 
 
